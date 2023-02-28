@@ -2,26 +2,35 @@ package project02;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
 
 class Browser {
 	String browserName;
 	float browserVersion;
-	ArrayList<String> urlList = new ArrayList<>();
+	ArrayList<String> urlList = new ArrayList<>();	
 
-	Browser(String browserName, float browserVersion, ArrayList<String> urlList) {
+
+	Browser(String browserName) {
 		this.browserName = browserName;
-		this.browserVersion = browserVersion;
-		this.urlList = urlList;
 	}
 
 	public String getName() {
 		return browserName;
 	}
 
-	public float getVersion() {
+	public float getBrowserVersion() {
 		return browserVersion;
 	}
+
+	public void setBrowserVersion(float browserVersion) {
+		this.browserVersion = browserVersion;
+	}
+
+	public void setUrlList(ArrayList<String> urlList) {
+		this.urlList = urlList;
+	}
+
 
 	public List<String> getUrlList() {
 		return urlList;
@@ -65,13 +74,15 @@ public class Main {
 				int urlCount = sc.nextInt();
 
 				for (int i = 1; i <= urlCount; i++) {
-					System.out.println("Enter url" + i);
+					System.out.println("Enter url " + i);
 					Scanner scan1 = new Scanner(System.in);
 					String urlName = scan1.nextLine();
 					urlList.add(urlName);
 				}
-				Browser browse = new Browser(browserName, browserVersion, urlList);
-				browserList.add(browse);
+				Browser browser = new Browser(browserName);
+				browser.setBrowserVersion(browserVersion);
+				browser.setUrlList(urlList);
+				browserList.add(browser);
 
 				break;
 
@@ -95,17 +106,18 @@ public class Main {
 				String browserName1 = scan3.nextLine();
 				for (int i = 0; i < browserList.size(); i++) {
 					Browser b = browserList.get(i);
-					System.out.println("Enter url");
-					String url = scan3.nextLine();
-					b.getUrlList().add(url);
-					break;
+					if (Objects.equals(b.getName(), browserName1)) {
+						System.out.println("Enter url");
+						String url = scan3.nextLine();
+						b.getUrlList().add(url);
+					}
 				}
 				break;
 			case 5:
 				for (int i = 0; i < browserList.size(); i++) {
 					Browser b = browserList.get(i);
 					System.out.println(b.getName());
-					System.out.println(b.getVersion());
+					System.out.println(b.getBrowserVersion());
 					System.out.println(b.getUrlList());
 				}
 				break;
